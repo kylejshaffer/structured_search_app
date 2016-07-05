@@ -421,20 +421,6 @@ function assignNewAttribute(attributeName, attributeValue, currentFlagId) {
     document.getElementById(currentFlagId).setAttributeNode(newAttribute);
 };
 
-// Sketch of D3 idea to track types of notes
-// This is really tangential- saving for later development
-// if everything else goes swimmingly
-function tabulateDimensions() {
-    var countMap = {};
-    var tbl = document.getElementById("texttable");
-    var numCols = tbl.rows.length;
-    for (var i = 0; numCols; i++) {
-        console.log(tbl.rows[i]);
-        //for (var j = 0; )
-    }
-    return countMap;
-};
-
 
 chrome.tabs.onActivated.addListener(updatePopout);
 chrome.tabs.onUpdated.addListener(updatePopout);
