@@ -1,0 +1,108 @@
+.dragpulse {
+	-webkit-animation: pulsate 0.5s infinite alternate;
+	-moz-animation: pulsate 0.5s infinite alternate;
+	-animation: pulsate 0.5s infinite alternate;
+	text-shadow: 0 0 8px #ccc;
+}
+
+@-webkit-keyframes pulsate {
+	from { box-shadow: 0 0 10px #333; }
+	to { box-shadow: 0 0 20px #7EC0EE; }
+}
+
+@-moz-keyframes pulsate {
+	from { box-shadow: 0 0 10px #333; }
+	to { box-shadow: 0 0 20px #7EC0EE; }
+}
+
+@keyframes pulsate {
+	from { box-shadow: 0 0 10px #333; }
+	to { box-shadow: 0 0 20px #7EC0EE; }
+}
+
+.tbldrop {
+	height: 50px;
+	width: 80px;
+	text-align: center;
+	line-height: 0;
+}
+
+.circle-div {
+	border-radius: 50%;
+	height: 25px;
+	width: 25px;
+	background: #B2DFEE;
+}
+.col-link {
+	color: white;
+}
+.col-link:hover {
+	color: #B2DFEE;
+}
+.row-link {
+	color: black;
+}
+.row-link:hover {
+	color: #B2DFEE;
+}
+
+#notesdiv {
+	height: 35%;
+	width: 73%;
+	border-color: gray;
+	border-style: solid;
+	border-width: 2px;
+	overflow-y: auto;
+	color: #666666;
+	padding-left: 7%;
+	padding-right: 7%;
+
+	/* Code for fade animations - not currently working
+	-webkit-transition: opacity .5s ease-in-out;
+	-moz-transition: opacity .5s ease-in-out;
+	-ms-transition: opacity .5s ease-in-out;
+	-o-transition: opacity .5s ease-in-out;
+	transition: opacity .5s ease-in-out; */
+}
+
+img {
+	display: inline-block;
+	font-size: -1px;
+	margin: 0;
+	padding: 0;
+	float: left;
+}
+
+body {
+	padding-left: 10%;
+	padding-top: 5%;
+}
+
+span[column=1] {
+	background-color: yellow;
+}
+
+table {
+	align: center;
+}
+
+td {
+	padding: 15px;
+	text-align: left;
+}
+
+th {
+	color: white;
+	background-color: gray;
+	border-color: white;
+	padding: 15px;
+	text-align: left;
+}
+
+textarea {
+	position: relative;
+	padding-left: 25px;
+}
+
+
+
