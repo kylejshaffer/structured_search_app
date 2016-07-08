@@ -28,6 +28,10 @@ document.addEventListener('DOMContentLoaded', function() {
     var urlBase = currentUrl.split("/")[2];
     div1.innerHTML = "current URL = " + bgp.currentTabUrl;
 
+    // Variables for event PHP url and flag save PHP url
+    var eventPHPUrl = "https://idl.ils.unc.edu/rsearch2/v21_matrix1/log_event.php";
+    var bookmarkPHPUrl = "https://idl.ils.unc.edu/rsearch2/v21_matrix1/save_bookmark.php";
+
     // Grab all individual table cells
     var tbl_cells = document.getElementsByClassName("tbldrop");
     // Add event listeners to DOM, focusing on table elements
@@ -39,15 +43,13 @@ document.addEventListener('DOMContentLoaded', function() {
         // Add mouseover listener for each matrix cell
         tbl_cells[i].addEventListener("mouseover", function(e) {
             var eventData = logEvent("mouseover", this.id);
+            console.log(eventData);
             /*** Mock post code ***/
             var tmp = {};
             tmp['event_type'] = 'mouseover';
             tmp['event_source'] = 'kshaffer';
-            /* tmp['title'] = 'aaa_title';
-            tmp['annotation'] = 'aa_ann';
-            tmp['row_id'] = 1;
-            tmp['col_id'] = 3; */
-            $.post("https://idl.ils.unc.edu/rsearch2/v21_matrix1/log_event.php", tmp, function(data) {
+            // Post to PHP
+            $.post(eventPHPUrl, eventData, function(data) {
                 console.log("ZZZ got back " + data);
             });
             console.log("got here");
@@ -55,6 +57,12 @@ document.addEventListener('DOMContentLoaded', function() {
         // Add mouseout listener for each matrix cell
         tbl_cells[i].addEventListener("mouseout", function(e) {
             var eventData = logEvent("mouseout", this.id);
+            console.log(eventData);
+            // Post data to PHP
+            $.post(eventPHPUrl, eventData, function(data) {
+                console.log("got back " + data);
+            });
+            console.log("executed post...");
         });
         // Add click listener for each matrix cell
         tbl_cells[i].addEventListener("click", function(e) {
@@ -66,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function() {
             tmp['annotation'] = 'aa_ann';
             tmp['row_id'] = 1;
             tmp['col_id'] = 3;
-            $.post("https://idl.ils.unc.edu/rsearch2/v21_matrix1/save_bookmark.php", tmp, function(data) {
+            $.post(bookmarkPHPUrl, eventData, function(data) {
                 console.log("ZZZ got back " + data);
             });
             console.log("got here");
@@ -80,6 +88,11 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log("drag over");
             // Add event logger
             var eventData = logEvent("dragover", this.id);
+            // Flag post code
+            $.post(bookmarkPHPUrl, eventData, function(data) {
+                console.log("ZZZ got back " + data);
+            });
+            console.log("got here");
             return false;
         });
 
@@ -150,9 +163,9 @@ document.addEventListener('DOMContentLoaded', function() {
             var eventData = logEvent("flag_drop", this.id);
             eventData["source_url"] = bgp.currentTabUrl;
             // Mock post code
-            $.post("url", eventData, function(data) {
-                console.log("data");
-            });
+            // $.post("url", eventData, function(data) {
+            //     console.log("data");
+            // });
             console.log(eventData);
 
             // document.querySelector("#notesdiv").value = this.notes;
@@ -198,6 +211,7 @@ document.addEventListener('DOMContentLoaded', function() {
             };  
         };
         var eventData = logEvent("flag_delete", this.id);
+        $.post()
     });
 
     // JQuery function to get nice hover tooltips
@@ -348,14 +362,29 @@ document.addEventListener('DOMContentLoaded', function() {
     $(document).on("mouseover", "#notesdiv", function(e) {
         // Log data
         var eventData = logEvent("mouseover", this.id);
+        // Post data to PHP
+        $.post(eventPHPUrl, eventData, function(data) {
+            console.log("ZZZ got back " + data);
+        });
+        console.log("got here");
     });
     $(document).on("mouseout", "#notesdiv", function(e) {
         // Log data
         var eventData = logEvent("mouseout", this.id);
+        // Post data to PHP
+        $.post(eventPHPUrl, eventData, function(data) {
+            console.log("ZZZ got back " + data);
+        });
+        console.log("got here");
     });
     $(document).on("click", "#notesdiv", function(e) {
         // Log data
         var eventData = logEvent("click", this.id);
+        // Post data to PHP
+        $.post(eventPHPUrl, eventData, function(data) {
+            console.log("ZZZ got back " + data);
+        });
+        console.log("got here");
     });
     // Needs to be modified so we're measuring only scroll in this div, not entire document
     $(document).on("scroll", "#notesdiv", function(e) {
@@ -394,7 +423,8 @@ function updatePopout() {
 // Helper function for adding simple eventListeners
 function logEvent(eventType, elementId) {
     var data = {"event_type": eventType, 
-                "element_id": elementId, 
+                //"element_id": elementId, 
+                "event_target": elementId,
                 "timestamp": Date.now()};
     console.log(data);
     return data;
