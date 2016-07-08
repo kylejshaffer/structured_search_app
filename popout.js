@@ -44,10 +44,6 @@ document.addEventListener('DOMContentLoaded', function() {
         tbl_cells[i].addEventListener("mouseover", function(e) {
             var eventData = logEvent("mouseover", this.id);
             console.log(eventData);
-            /*** Mock post code ***/
-            var tmp = {};
-            tmp['event_type'] = 'mouseover';
-            tmp['event_source'] = 'kshaffer';
             // Post to PHP
             $.post(eventPHPUrl, eventData, function(data) {
                 console.log("ZZZ got back " + data);
@@ -67,14 +63,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // Add click listener for each matrix cell
         tbl_cells[i].addEventListener("click", function(e) {
             var eventData = logEvent("click", this.id);
-            /*** Mock post code ***/
-            var tmp = {};
-            tmp['url'] = 'aaa_url';
-            tmp['title'] = 'aaa_title';
-            tmp['annotation'] = 'aa_ann';
-            tmp['row_id'] = 1;
-            tmp['col_id'] = 3;
-            $.post(bookmarkPHPUrl, eventData, function(data) {
+            // Post code to PHP
+            $.post(eventPHPUrl, eventData, function(data) {
                 console.log("ZZZ got back " + data);
             });
             console.log("got here");
@@ -88,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log("drag over");
             // Add event logger
             var eventData = logEvent("dragover", this.id);
-            // Flag post code
+            // Post code to PHP
             $.post(bookmarkPHPUrl, eventData, function(data) {
                 console.log("ZZZ got back " + data);
             });
@@ -103,6 +93,11 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log("drag leave");
             // Add event logger
             var eventData = logEvent("dragleave", this.id);
+            // Post code to PHP
+            $.post(eventPHPUrl, eventData, function(data) {
+                console.log("ZZZ got back " + data);
+            });
+            console.log("got here");
             return false;
         });
         
