@@ -1,7 +1,4 @@
 /* NOTES
-Put code on GitHub/BitBucket
-
-save.php
 
 To Do:
 1. More coloring prototyping
@@ -206,7 +203,10 @@ document.addEventListener('DOMContentLoaded', function() {
             };  
         };
         var eventData = logEvent("flag_delete", this.id);
-        $.post()
+        // Post code to PHP
+        $.post(eventPHPUrl, eventData, function(data) {
+            console.log("ZZZ got back " + data);
+        });
     });
 
     // JQuery function to get nice hover tooltips
@@ -250,9 +250,9 @@ document.addEventListener('DOMContentLoaded', function() {
         // Log data from click
         var eventData = logEvent("flag_click", this.id);
         var parentElement = this.parentNode;
-        logData["note_text"] = this.getAttribute("noteText");
-        logData["source_url"] = this.getAttribute("source_url");
-        console.log(logData);
+        eventData["note_text"] = this.getAttribute("noteText");
+        eventData["source_url"] = this.getAttribute("source_url");
+        console.log(eventData);
         // Display notes in appropriate area
         document.querySelector("#notesdiv").innerHTML = this.getAttribute("noteText");
         // Indicate selected flag on click
@@ -390,7 +390,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var scrollPct = h[st] || b[st] / ((h[sh] || b[sh]) - h.clientHeight) * 100;
         var eventData = logEvent("scroll", this.id);
         eventData["scroll_pct"] = scrollPct;
-        console.log(logData);
+        console.log(eventData);
     });
     
 });
