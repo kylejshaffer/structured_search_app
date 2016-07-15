@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log(eventData);
             // Post to PHP
             $.post(eventPHPUrl, eventData, function(data) {
-                console.log("ZZZ got back " + data);
+                console.log("data posted:  " + data);
             });
             console.log("got here");
         });
@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
             var eventData = logEvent("click", this.id);
             // Post code to PHP
             $.post(eventPHPUrl, eventData, function(data) {
-                console.log("ZZZ got back " + data);
+                console.log("data posted:  " + data);
             });
             console.log("got here");
         })
@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
             var eventData = logEvent("dragover", this.id);
             // Post code to PHP
             $.post(bookmarkPHPUrl, eventData, function(data) {
-                console.log("ZZZ got back " + data);
+                console.log("data posted: " + data);
             });
             console.log("got here");
             return false;
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
             var eventData = logEvent("dragleave", this.id);
             // Post code to PHP
             $.post(eventPHPUrl, eventData, function(data) {
-                console.log("ZZZ got back " + data);
+                console.log("data posted:  " + data);
             });
             console.log("got here");
             return false;
@@ -154,10 +154,10 @@ document.addEventListener('DOMContentLoaded', function() {
             // Add event logger
             var eventData = logEvent("flag_drop", this.id);
             eventData["source_url"] = bgp.currentTabUrl;
-            // Mock post code
-            // $.post("url", eventData, function(data) {
-            //     console.log("data");
-            // });
+            // Post code to PHP
+            $.post(eventPHPUrl, eventData, function(data) {
+                console.log("data posted: " + data);
+            });
             console.log(eventData);
 
             // document.querySelector("#notesdiv").value = this.notes;
@@ -199,13 +199,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Remove link element
                 $("#" + parentElement.id).remove();
                 // Remove displayed notes area text
-                document.querySelector("#notesdiv").innerHTML = "";
+                document.querySelector("#notesdiv").innerHTML = "Selected text will appear here";
             };  
         };
         var eventData = logEvent("flag_delete", this.id);
         // Post code to PHP
         $.post(eventPHPUrl, eventData, function(data) {
-            console.log("ZZZ got back " + data);
+            console.log("data posted: " + data);
         });
     });
 
@@ -245,7 +245,7 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log("Popover function clicked...");
         return true;
     });
-    // Flag click function
+    // Flag click function - highlights selected flags
     $(document).on("click", ".textflag", function() {
         // Log data from click
         var eventData = logEvent("flag_click", this.id);
@@ -265,6 +265,23 @@ document.addEventListener('DOMContentLoaded', function() {
             };
         };
         return true;
+    });
+    // Flag "click-off" function
+    // This function fires when a user initially selects a flag(s) and later
+    // clicks anywhere else on the DOM
+    $(document).on("click", function(e) {
+        var containers = document.getElementsByClassName("circle-div");
+        console.log(containers);
+        for (var i=0; i < containers; i++) {
+            console.log("entering for-loop...");
+            console.log(containers[i]);
+            if (!containers[i].is(e.target)) {
+                // Remove text from text div
+                $("#notesdiv").html("Selected text will appear here");
+                // Remove highlighted flag class
+                containers[i].removeClass("circle-div");
+            };
+        };
     });
     // Flag double-click function
     $(document).on("dblclick", ".textflag", function() {
@@ -359,7 +376,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var eventData = logEvent("mouseover", this.id);
         // Post data to PHP
         $.post(eventPHPUrl, eventData, function(data) {
-            console.log("ZZZ got back " + data);
+            console.log("data posted:  " + data);
         });
         console.log("got here");
     });
@@ -368,7 +385,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var eventData = logEvent("mouseout", this.id);
         // Post data to PHP
         $.post(eventPHPUrl, eventData, function(data) {
-            console.log("ZZZ got back " + data);
+            console.log("data posted:  " + data);
         });
         console.log("got here");
     });
@@ -377,7 +394,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var eventData = logEvent("click", this.id);
         // Post data to PHP
         $.post(eventPHPUrl, eventData, function(data) {
-            console.log("ZZZ got back " + data);
+            console.log("data posted:  " + data);
         });
         console.log("got here");
     });
