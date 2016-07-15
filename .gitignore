@@ -5,6 +5,7 @@
 *.dll
 *.exe
 *.o
+*.pyc
 *.so
 
 # Packages #
@@ -33,6 +34,5 @@
 ._*
 .Spotlight-V100
 .Trashes
-.pyc
 ehthumbs.db
 Thumbs.db
