@@ -257,9 +257,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelector("#notesdiv").innerHTML = this.getAttribute("noteText");
         // Indicate selected flag on click
         var flags = document.getElementsByClassName("textflag");
-        $("#" + this.id).toggleClass("circle-div", function(e) {
-            console.log(e);
-        });
+        $("#" + this.id).toggleClass("circle-div");
         // Loop through and remove other background highlight
         for (var i=0; i < flags.length; i++) {
             if (flags[i].id !== this.id) {
@@ -272,24 +270,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // This function fires when a user initially selects a flag(s) and later
     // clicks anywhere else on the DOM
     $(document).on("click", function(e) {
-        var containers = document.getElementsByClassName("circle-div");
-        console.log(containers);
-        // for (var i=0; i < containers; i++) {
-        //     console.log("entering for-loop...");
-        //     console.log(containers[i]);
-        //     if (!containers[i].is(e.target)) {
-        //         // Remove text from text div
-        //         $("#notesdiv").html("Selected text will appear here");
-        //         // Remove highlighted flag class
-        //         containers[i].removeClass("circle-div");
-        //     };
-        // };
+        // Select and store highlighted flag as variable
         var container = document.getElementsByClassName("circle-div")[0];
+        // Check whether a flag has been clicked
+        // If not, remove selected flag class
         if (container !== e.target) {
             document.getElementById("notesdiv").innerHTML = "Selected text will appear here";
             container.className = "textflag";   
         }
-        console.log("got here...");
     });
     // Flag double-click function
     $(document).on("dblclick", ".textflag", function() {
