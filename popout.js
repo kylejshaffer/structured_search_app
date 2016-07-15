@@ -257,7 +257,9 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelector("#notesdiv").innerHTML = this.getAttribute("noteText");
         // Indicate selected flag on click
         var flags = document.getElementsByClassName("textflag");
-        $("#" + this.id).toggleClass("circle-div");
+        $("#" + this.id).toggleClass("circle-div", function(e) {
+            console.log(e);
+        });
         // Loop through and remove other background highlight
         for (var i=0; i < flags.length; i++) {
             if (flags[i].id !== this.id) {
@@ -272,16 +274,22 @@ document.addEventListener('DOMContentLoaded', function() {
     $(document).on("click", function(e) {
         var containers = document.getElementsByClassName("circle-div");
         console.log(containers);
-        for (var i=0; i < containers; i++) {
-            console.log("entering for-loop...");
-            console.log(containers[i]);
-            if (!containers[i].is(e.target)) {
-                // Remove text from text div
-                $("#notesdiv").html("Selected text will appear here");
-                // Remove highlighted flag class
-                containers[i].removeClass("circle-div");
-            };
-        };
+        // for (var i=0; i < containers; i++) {
+        //     console.log("entering for-loop...");
+        //     console.log(containers[i]);
+        //     if (!containers[i].is(e.target)) {
+        //         // Remove text from text div
+        //         $("#notesdiv").html("Selected text will appear here");
+        //         // Remove highlighted flag class
+        //         containers[i].removeClass("circle-div");
+        //     };
+        // };
+        var container = document.getElementsByClassName("circle-div")[0];
+        if (container !== e.target) {
+            document.getElementById("notesdiv").innerHTML = "Selected text will appear here";
+            container.className = "textflag";   
+        }
+        console.log("got here...");
     });
     // Flag double-click function
     $(document).on("dblclick", ".textflag", function() {
