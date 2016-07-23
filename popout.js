@@ -230,7 +230,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // Remove displayed notes area text
         document.querySelector("#notesdiv").innerHTML = "";
     });
-    // Add alert for deletion
     
     // Test link wrapping for flag elements
     $(document).on("contextmenu", ".textflag", function(e) {
@@ -285,6 +284,7 @@ document.addEventListener('DOMContentLoaded', function() {
     $(document).on("dblclick", ".textflag", function() {
         var url = this.getAttribute("source_url");
         var win = window.open(url, "_blank");
+        // Grab event data
         var eventData = logEvent("double_click", this.id);
         // Post code to PHP
         $.post(eventPHPUrl, eventData, function(data) {
@@ -332,6 +332,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Row click function
+    // Not sure if we're actually going to use this - may need to be removed
     $(document).on("click", ".row-link", function() {
         // Log column click event
         var eventData = logEvent("row_click", this.id);
@@ -399,17 +400,6 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log("data posted:  " + data);
         });
         console.log("post executed...");
-    });
-    // Needs to be modified so we're measuring only scroll in this div, not entire document
-    $(document).on("scroll", "#notesdiv", function(e) {
-        var h = document.documentElement,
-            b = document.body,
-            st = "scrollTop",
-            sh = "scrollHeight";
-        var scrollPct = h[st] || b[st] / ((h[sh] || b[sh]) - h.clientHeight) * 100;
-        var eventData = logEvent("scroll", this.id);
-        eventData["scroll_pct"] = scrollPct;
-        console.log(eventData);
     });
     
 });
