@@ -247,6 +247,10 @@ document.addEventListener('DOMContentLoaded', function() {
     $(document).on("click", ".textflag", function() {
         // Log data from click
         var eventData = logEvent("flag_click", this.id);
+        // Post code to PHP
+        $.post(eventPHPUrl, eventData, function(data) {
+            console.log("data posted: " + data);
+        });
         var parentElement = this.parentNode;
         eventData["note_text"] = this.getAttribute("noteText");
         eventData["source_url"] = this.getAttribute("source_url");
@@ -282,6 +286,10 @@ document.addEventListener('DOMContentLoaded', function() {
         var url = this.getAttribute("source_url");
         var win = window.open(url, "_blank");
         var eventData = logEvent("double_click", this.id);
+        // Post code to PHP
+        $.post(eventPHPUrl, eventData, function(data) {
+            console.log("data posted: " + data);
+        });
     });
     // Column click function
     $(document).on("click", ".col-link", function() {
