@@ -7,11 +7,9 @@ Bugs:
 1. Right-click event doesn't work until 2nd or 3rd try. After it does work, the pop-up is also
 associated with normal clicks. No idea why.
 2. Double-check flag highlighting (rogue flag highlighting)
-3. Remove text from notes area on ANY deselect of note flag
 
 Other Ideas (not immediately necessary):
-1. Prep for tracking all behavior from search results to content page where text is snipped from
-2. Wikipedia mock page with draggable/segmented DIV's
+1. Wikipedia mock page with draggable/segmented DIV's
 
 */ 
 
@@ -45,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
             $.post(eventPHPUrl, eventData, function(data) {
                 console.log("data posted:  " + data);
             });
-            console.log("got here");
+            console.log("post executed...");
         });
         // Add mouseout listener for each matrix cell
         tbl_cells[i].addEventListener("mouseout", function(e) {
@@ -64,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
             $.post(eventPHPUrl, eventData, function(data) {
                 console.log("data posted:  " + data);
             });
-            console.log("got here");
+            console.log("post executed...");
         })
 
         // Add drag over event listener to each table cell
@@ -79,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
             $.post(bookmarkPHPUrl, eventData, function(data) {
                 console.log("data posted: " + data);
             });
-            console.log("got here");
+            console.log("post executed...");
             return false;
         });
 
@@ -94,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
             $.post(eventPHPUrl, eventData, function(data) {
                 console.log("data posted:  " + data);
             });
-            console.log("got here");
+            console.log("post executed...");
             return false;
         });
         
@@ -104,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function() {
             this.parentElement.className = "";
             //e.stopPropogation();
             var src = e.dataTransfer.getData("Text");
-            console.log("drop drop drop");
+            console.log("drop...");
             console.log(src);
             this.notes += "\n" + src;
 
@@ -374,7 +372,7 @@ document.addEventListener('DOMContentLoaded', function() {
         $.post(eventPHPUrl, eventData, function(data) {
             console.log("data posted:  " + data);
         });
-        console.log("got here");
+        console.log("post executed...");
     });
     $(document).on("mouseout", "#notesdiv", function(e) {
         // Log data
@@ -383,7 +381,7 @@ document.addEventListener('DOMContentLoaded', function() {
         $.post(eventPHPUrl, eventData, function(data) {
             console.log("data posted:  " + data);
         });
-        console.log("got here");
+        console.log("post executed...");
     });
     $(document).on("click", "#notesdiv", function(e) {
         // Log data
@@ -392,7 +390,7 @@ document.addEventListener('DOMContentLoaded', function() {
         $.post(eventPHPUrl, eventData, function(data) {
             console.log("data posted:  " + data);
         });
-        console.log("got here");
+        console.log("post executed...");
     });
     // Needs to be modified so we're measuring only scroll in this div, not entire document
     $(document).on("scroll", "#notesdiv", function(e) {
