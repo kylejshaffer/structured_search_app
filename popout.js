@@ -276,7 +276,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // If not, remove selected flag class
         if (container !== e.target) {
             document.getElementById("notesdiv").innerHTML = "Selected text will appear here";
-            container.className = "textflag";   
+            container.className = "textflag";
         }
     });
     // Flag double-click function
