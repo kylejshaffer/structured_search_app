@@ -228,7 +228,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Remove link element
         $("#" + linkElement.id).remove();
         // Remove displayed notes area text
-        document.querySelector("#notesdiv").innerHTML = "";
+        document.querySelector("#notesdiv").innerHTML = "Selected text will appear here";
     });
     
     // Test link wrapping for flag elements

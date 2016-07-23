@@ -5,9 +5,8 @@
 // Adding page load listener
 document.addEventListener("DOMContentLoaded", function() {
 	console.log("Entering page load listener...");
-	var pageLoadData = {"action_type": "page_load",
-					   "url": window.location.href,
-					   "timestamp": Date.now()};
+	// Call log function
+	var pageLoadData = logEvent("page_load", window.location.href);
 	console.log(pageLoadData);
 	// Insert post here
 });
@@ -18,7 +17,7 @@ for (i=0; i < linkArray.length; i++) {
 	linkArray[i].addEventListener("click", function(e) {
 		console.log("link clicked...");
 		console.log(this.href);
-		var linkData = {"action_type": "link_click", "link": this.href, "timestamp": Date.now()};
+		var linkData = logEvent("link_click", this.href);
 		console.log(linkData);
 		// Insert post here
 	});
@@ -32,11 +31,14 @@ document.addEventListener("scroll", function() {
 		st = "scrollTop",
 		sh = "scrollHeight";
 	var scrollPct = h[st] || b[st] / ((h[sh] || b[sh]) - h.clientHeight) * 100;
+	// Need to figure out how to get this to the DB
+	// Look into additional fields
 	var scrollData = {"action_type": "scroll", "scroll_pct": scrollPct, "url": window.location.href, "timestamp": Date.now()};
 	console.log(scrollData);
 	// Insert post here
 }, false);
 
+// Function for updating popout
 function updatePopout() {
     
     chrome.tabs.query({active: true, lastFocusedWindow: true}, function(tabs) {
@@ -54,3 +56,19 @@ function updatePopout() {
     });
     
 };
+
+// Function for recording event data - same as in popout code
+function logEvent(eventType, elementId) {
+    var data = {"event_type": eventType, 
+                //"element_id": elementId, 
+                "event_target": elementId,
+                "timestamp": Date.now()};
+    console.log(data);
+    return data;
+};
+
+
+
+
+
+
